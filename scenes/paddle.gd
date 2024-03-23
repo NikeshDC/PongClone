@@ -1,14 +1,17 @@
 extends Area2D
 
-export var speed = 10
+export var speed = 500.0
 
 var bound_max_x = 900 #max value of position.x that paddle can have
 var bound_min_x = 100 #min value of position.x that paddle can have
 
 var move_direction = 0.0 #no movement, paddle can move only left/right so using float
+var prev_position_x
+var velocity_x
+var paddle_size
 
-export var player = 1
-
+func _ready():
+	prev_position_x = position.x
 
 func move(amount):
 	position.x += amount
@@ -24,26 +27,5 @@ func set_movement_dir(direction):
 func _physics_process(delta):
 	var movement_x = move_direction * speed * delta
 	move(movement_x)
-
-func get_player1_input():
-	if(Input.is_key_pressed(KEY_RIGHT)):
-		set_movement_dir(1.0)
-	elif(Input.is_key_pressed(KEY_LEFT)):
-		set_movement_dir(-1.0)
-	else:
-		set_movement_dir(0.0)
-
-func get_player2_input():
-	if(Input.is_key_pressed(KEY_D)):
-		set_movement_dir(1.0)
-	elif(Input.is_key_pressed(KEY_A)):
-		set_movement_dir(-1.0)
-	else:
-		set_movement_dir(0.0)
-
-func _process(delta):
-	#arrow input for player
-	if(player == 1):
-		get_player1_input()
-	elif(player == 2):
-		get_player2_input()
+	velocity_x = (position.x - prev_position_x) / delta
+	prev_position_x = position.x

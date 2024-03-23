@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://scenes/paddle.gd" type="Script" id=1]
+[ext_resource path="res://scenes/paddle_AIcontroller.gd" type="Script" id=2]
+[ext_resource path="res://sprites/paddle.png" type="Texture" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 22.8092, 10 )
+
+[node name="paddle" type="Area2D" groups=["paddle"]]
+scale = Vector2( 3, 2 )
+script = ExtResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 0.142857, 0.214286 )
+texture = ExtResource( 3 )
+
+[node name="collider" type="CollisionShape2D" parent="."]
+scale = Vector2( 1.11797, 0.421255 )
+shape = SubResource( 1 )
+
+[node name="AIcontroller" type="Node" parent="."]
+script = ExtResource( 2 )

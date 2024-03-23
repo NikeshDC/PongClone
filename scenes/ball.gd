@@ -1,6 +1,6 @@
 extends Area2D
 
-export var speed = 10
+export var speed = 10.0
 
 var direction = Vector2()
 
@@ -15,6 +15,11 @@ func _process(delta):
 
 func _on_area_entered(area):
 	if(area.is_in_group("paddle")):
-		direction.y *= -1
+		handle_collision_with_paddle(area)
 	elif(area.is_in_group("wall")):
 		direction.x *= -1
+
+func handle_collision_with_paddle(paddle):
+	direction.x += paddle.velocity_x
+	direction.x = clamp(direction.x, -1, 1)
+	direction.y *= -1
